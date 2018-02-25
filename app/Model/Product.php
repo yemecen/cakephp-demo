@@ -11,7 +11,7 @@ class Product extends AppModel {
  *
  * @var array
  */
-	public $validate = array(
+	/*public $validate = array(
 		'name' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),
@@ -142,5 +142,5 @@ class Product extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-	);
+	);*/
 }
