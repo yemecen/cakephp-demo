@@ -13,16 +13,17 @@ class ProductsController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
-
+	//public $components = array('Paginator');
+	public $uses = array('Product');
 /**
  * index method
  *
  * @return void
  */
 	public function index() {
-		$this->Product->recursive = 0;
-		$this->set('products', $this->Paginator->paginate());
+
+		$products = $this->Product->find('all');
+		$this->set('products', $products);
 	}
 
 /**
@@ -33,11 +34,11 @@ class ProductsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Product->exists($id)) {
+		/*if (!$this->Product->exists($id)) {
 			throw new NotFoundException(__('Invalid product'));
-		}
-		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
-		$this->set('product', $this->Product->find('first', $options));
+		}*/
+		$products = $this->Product->query("SELECT * FROM products WHERE id = ".$id);
+		$this->set('products', $products);
 	}
 
 /**
