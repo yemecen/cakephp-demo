@@ -6,13 +6,13 @@
 					      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Akıllı Sıralama <span class="caret"></span></a>
 
 					      <ul class="dropdown-menu">
-					        <li><a href="">İsme Göre</a></li>
-					        <li><a href="">Fiyata Göre</a></li>
+					        <li><?php echo $this->Html->link('İsme Göre','orderByName'); ?></li>
+					        <li><?php echo $this->Html->link('Fiyata Göre','orderByPrice'); ?></li>
 					      </ul>
 				    </li>
 				</ul> 
 	</div>
-		
+		 
 	<div class="row">
 		
 		<?php foreach ($products as $item) 
@@ -23,7 +23,7 @@
 						      <div class="caption">
 						        <h3><?php echo $item['Product']['name']; ?></h3>
 						        <p><?php echo $item['Product']['price']; ?></p>
-						        <p><a href="view/<?php echo $item['Product']['id']; ?>" class="btn btn-primary" role="button">İncele</a> 
+						        <p><a href="products/view/<?php echo $item['Product']['id']; ?>" class="btn btn-primary" role="button">İncele</a> 
 						           <a href="#<?php echo $item['Product']['id']; ?>" class="btn btn-default" role="button">Sepete Ekle</a>
 						       	</p>
 						      </div>

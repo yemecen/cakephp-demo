@@ -20,9 +20,11 @@ class ProductsController extends AppController {
  *
  * @return void
  */
-	public function index() {
+	public function index() 
+	{
 
 		$products = $this->Product->find('all');
+		
 		$this->set('products', $products);
 	}
 
@@ -33,7 +35,8 @@ class ProductsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function view($id = null) 
+	{
 		/*if (!$this->Product->exists($id)) {
 			throw new NotFoundException(__('Invalid product'));
 		}*/
@@ -45,7 +48,7 @@ class ProductsController extends AppController {
  * add method
  *
  * @return void
- */
+ 
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Product->create();
@@ -64,7 +67,7 @@ class ProductsController extends AppController {
  * @throws NotFoundException
  * @param string $id
  * @return void
- */
+ 
 	public function edit($id = null) {
 		if (!$this->Product->exists($id)) {
 			throw new NotFoundException(__('Invalid product'));
@@ -88,7 +91,7 @@ class ProductsController extends AppController {
  * @throws NotFoundException
  * @param string $id
  * @return void
- */
+ 
 	public function delete($id = null) {
 		$this->Product->id = $id;
 		if (!$this->Product->exists()) {
@@ -101,5 +104,39 @@ class ProductsController extends AppController {
 			$this->Flash->error(__('The product could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}
+	}*/
+
+    /**
+     * Ürünleri isme göre sıralar.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function orderByName()
+    {
+        //Ürünleri isme göre sıralıyoruz
+		$products = $this->Product->find('all',  array(
+        'order' => array('Product.name' => 'asc')
+    	));
+
+		$this->set('products',$products);
+
+        $this->view = 'index';
+    }
+    /**
+     * Ürünleri fiyatına göre sıralar.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function orderByPrice()
+    {
+        //Ürünleri fiyata göre sıralar
+        $products = $this->Product->find('all',  array(
+        'order' => array('Product.price' => 'asc')
+    	));
+
+		$this->set('products',$products);
+
+        $this->view = 'index';
+    }
+
 }
