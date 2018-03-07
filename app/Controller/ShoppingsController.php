@@ -35,19 +35,31 @@ class ShoppingsController extends AppController
         if (!empty($shoppingCart)) {
             //Sepet dolu ise ve aynı ürün eklenmek isteniyorsa
             if (array_key_exists($id, $shoppingCart['Cart']['CartItems'])) {
-                $shoppingCart['Cart']['CartItems'][$id]['price'] += $shoppingCart['Cart']['CartItems'][$id]['price'];
+                //Sepette ki ürün
+                $shoppingCart['Cart']['CartItems'][$id]['price'] += $shoppingCart['Cart']['CartItems'][$id]['Product']['price'];
                 $shoppingCart['Cart']['CartItems'][$id]['qty'] ++;
-                
+                //Sepet genel toplam
+                $shoppingCart['Cart']['CartPriceTotal'] += $shoppingCart['Cart']['CartItems'][$id]['Product']['price'];
+                $shoppingCart['Cart']['CartQtyTotal'] ++;
+                //Session güncelleme
+                $this->Session->delete('ShoppingCard');
+                $this->Session->write('ShoppingCard',$shoppingCart);
+
             } else {
-                //Sepette olmayan, yeni bir ürün ekleniyorsa
-                 
+                //Sepette olmayan, yeni bir ürün ekleniyorsa,yeni ürün array i
+                $new = array($product['Product']['id'] => array('Product'=>$product['Product'], 'price'=> $product['Product']['price'], 'qty'=> 1))
+                //Yeni ürün sepete ekleme
+                array_push($shoppingCart['Cart']['CartItems'], $new);
+                //Session güncelleme
+                $this->Session->delete('ShoppingCard');
+                $this->Session->write('ShoppingCard',$shoppingCart);
             }
 
         } else {
             echo "Boş";
             //Sepet boş ise
             $shoppingCart = array('Cart' => 
-                                   array('CartItems' => array($product['Product']['id'] => $product, 'price'=> $product['Product']['price'], 'qty'=> 1),
+                                   array('CartItems' => array($product['Product']['id'] => array('Product'=>$product['Product'], 'price'=> $product['Product']['price'], 'qty'=> 1)),
                                          'CartPriceTotal' => $product['Product']['price'], 
                                          'CartQtyTotal' => 1) 
                                 );
