@@ -24,7 +24,7 @@
 						        <h3><?php echo $item['Product']['name']; ?></h3>
 						        <p><?php echo $item['Product']['price']; ?></p>
 						        <p><a href="products/view/<?php echo $item['Product']['id']; ?>" class="btn btn-primary" role="button">İncele</a> 
-						           <a href="#<?php echo $item['Product']['id']; ?>" class="btn btn-default" role="button">Sepete Ekle</a>
+						           <a href="shoppings/productAddCard/<?php echo $item['Product']['id']; ?>" class="btn btn-default" role="button">Sepete Ekle</a>
 						       	</p>
 						      </div>
 						    </div>

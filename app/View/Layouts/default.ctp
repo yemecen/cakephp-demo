@@ -60,21 +60,26 @@
                       </a>
 		            <div class="container-fluid">
 		                <ul class="nav navbar-nav navbar-right">
-		                    <!--@if(Session::has('ShoppingCard'))-->
-		                    <li class="dropdown">
-		                      <a href="shoppingCard"><i class="fas fa-shopping-cart"></i> Sepetim <span class="badge"><!--{{Session::has('ShoppingCard') ? Session::get('ShoppingCard')->cartTotalQuantity : ''}}--></span></a>
-		                    </li>
-		                     <!--@else-->
-		                    <li><a href="shoppingCard"><i class="fas fa-shopping-cart"></i> Sepetim <span class="badge">0</span></a></li>
-		                     <!--@endif-->
-		                </ul>
-		                    
+		                    <?php
+								if ($this->Session->check('ShoppingCard')){
+									echo "<li class='dropdown'>
+					                      <a href='shoppings'><i class='fas fa-shopping-cart'></i> Sepetim <span class='badge'><!--{{Session::has('ShoppingCard') ? Session::get('ShoppingCard')->cartTotalQuantity : ''}}--></span>
+					                      </a>
+					                    </li>";
+								} else {
+									echo "<li>
+					                    	<a href='shoppings'><i class='fas fa-shopping-cart'></i> Sepetim <span class='badge'>0</span>
+					                    	</a>
+					                     </li>";
+								}
+		                    ?>
+		                </ul>		                    
 		            </div>
 		        </nav>
 		    </div>
 		</div>
-		<div id="content">
 
+		<div id="content">
 			<?php echo $this->fetch('content'); ?>
 		</div>
 
